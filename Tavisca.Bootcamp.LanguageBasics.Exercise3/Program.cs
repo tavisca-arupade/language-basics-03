@@ -40,8 +40,100 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
         public static int[] SelectMeals(int[] protein, int[] carbs, int[] fat, string[] dietPlans)
         {
-            // Add your code here.
-            throw new NotImplementedException();
+            //Author : Aditi Rupade
+
+            // for final index for each individual
+            int[] index = new int[dietPlans.Length];
+
+            //itersting loop for each individual and for each meal value
+            for (int i = 0; i < index.Length; i++)
+            {
+                for (int j = 1; j < protein.Length; j++)
+                {
+                    if (getIndex(protein, carbs, fat, dietPlans[i], j, index[i]))
+                    {
+                        index[i] = j;
+                    }
+                }
+            }
+            return index;
+        }
+        
+        public static Boolean getIndex(int [] protein, int[] carbs, int[] fat, String dietPlan,int next, int curr)
+        {
+            for (int i = 0; i < dietPlan.Length; i++)
+            {
+                char criteria = dietPlan[i];
+                 if (criteria == 'P' || criteria == 'p')
+                {
+                    if (protein[next] == protein[curr])
+                    {
+                        continue;
+                    }
+                    if (criteria == 'P')
+                    {
+                        return protein[next] > protein[curr];
+                    }
+                    else
+                    {
+                        return protein[next] < protein[curr];
+                    }
+                }
+                else if (criteria == 'C' || criteria == 'c')
+                {
+                    if (carbs[next] == carbs[curr])
+                    {
+                        continue;
+                    }
+                    if (criteria == 'C')
+                    {
+                        return carbs[next] > carbs[curr];
+                    }
+                    else
+                    {
+                        return carbs[next] < carbs[curr];
+                    }
+                }
+               
+                else if (criteria == 'F' || criteria == 'f')
+                {
+                    if (fat[next] == fat[curr])
+                    {
+                        continue;
+                    }
+                    if (criteria == 'F')
+                    {
+                        return fat[next] > fat[curr];
+                    }
+                    else
+                    {
+                        return fat[next] < fat[curr];
+                    }
+                }
+                else
+                {
+                    int calorie1 = calcCalorie(protein[next], carbs[next], fat[next]);
+                    int calorie2 = calcCalorie(protein[curr], carbs[curr], fat[curr]);
+                    if (calorie1 == calorie2)
+                    {
+                        continue;
+                    }
+                    if (criteria == 'T')
+                    {
+                        return calorie1 > calorie2;
+                    }
+                    else
+                    {
+                        return calorie1 < calorie2;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static int calcCalorie(int protein, int carbs, int fat)
+        {
+            return protein * 5 + carbs * 5 + fat * 9;
         }
     }
 }
